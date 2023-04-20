@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -20,29 +20,27 @@ const Login = (props) => {
   const [loader, setLoder] = useState(false)
   const [appInformationStatus, setappInformationStatus ] = useState(false)
   // const [checkboxStatus, setCheckboxStatus] = useState(null)
-  // const [emailValidaion, setEmailValidation] = useState(false)
-  // const [passWValidaion, setPassWValidation] = useState(false)
+  const [emailValidaion, setEmailValidation] = useState(false)
+  const [passWValidaion, setPassWValidation] = useState(false)
 
   const dispatch = useDispatch();
   const data = useSelector(s=>s)
   console.log(data)
 
   //email and password validation 
-  // useEffect(() => {
-  //   if (/[0-9]/.test(inputPassword) && /[~!@#$%^&*]/.test(inputPassword)) setPassWValidation(false)
-  //   else if (inputPassword.length > 2) setPassWValidation(true)
-  //   else if (inputPassword.length === 0) setPassWValidation(false)
+  useEffect(() => {
+    if (/[0-9]/.test(inputPassword) && /[~!@#$%^&*]/.test(inputPassword)) setPassWValidation(false)
+    else if (inputPassword.length > 2) setPassWValidation(true)
+    else if (inputPassword.length === 0) setPassWValidation(false)
 
-  //   if (/[@]/.test(inputEmail) && /[.]/.test(inputEmail)) setEmailValidation(false)
-  //   else if (inputEmail.length === 0) setEmailValidation(false)
-  //   else setEmailValidation(true)
-  // }, [inputEmail, inputPassword])
+    if (/[@]/.test(inputEmail) && /[.]/.test(inputEmail)) setEmailValidation(false)
+    else if (inputEmail.length === 0) setEmailValidation(false)
+    else setEmailValidation(true)
+  }, [inputEmail, inputPassword])
 
   //Onsubmit function 
   async function onsunmitFun(e) {
     e.preventDefault()
-    // console.log(inputEmail,inputPassword)
-    // console.log(checkboxStatus)
     setLoder(true)
     try {
       const body = {
@@ -51,32 +49,32 @@ const Login = (props) => {
       }
     
       let res = await axios.post('https://task-manager-gd9n.onrender.com/login', body)
-      // console.log({email: inputEmail, token: res.data.token})
       dispatch(setUserInfo({email: inputEmail, token: res.data.token}))
       setErrorMessege('')
       navgate('./main')
-      
-      // console.log(res)
-      // console.log(res.data.token,'<<<<<token')
-      // localStorage.setItem('logToken', res.data.token)
-      // localStorage.setItem('userID', inputEmail.split('@')[0])
-      // navgate('./main')
-      // // coocki
+ 
       // document.cookie = 'SEmail'+inputEmail+";path=http://localhost:3000"
       // document.cookie = 'Spassword'+inputPassword+";path=http://localhost:3000"
     } catch (error) {
       setErrorMessege(error.response.data.status)
-      // console.log(error.response.data.status,"responde============")
     }
     setLoder(false)
   }
 
   return (
     <div className='loginBody'>
-      <div className='textForInformationApp' style={{visibility:`${appInformationStatus ? "hidden" : ""}`}}>
-        this is Task manager app. backend in Nodejs (deploye in render.com). frontend in react.
-         State management with tecnology used Redux-toolkit, nodejs expressJs, react, mongoDb, 
-         Render.com(api), netlify.com(ui)
+      <div className='textForInformationApp' 
+      style={{visibility:`${appInformationStatus ? "hidden" : ""}`}}
+      
+      >
+        <b>TASK MANAGER App</b> . 
+        
+        <p> UI web pages: login, singup, home, addTaskForm
+
+          <br /> try this email and password for quick access . 
+          <br /><b>  email: "12@12.com" ; password: "12@12.com" </b></p>
+         <p><u><i>Redux-toolkit,metarialUI, react, nodejs expressJs, mongoDb, 
+         Render.com(api), netlify.com(ui)</i></u></p>
       </div>
       <div className='Login-container'
       onMouseEnter={()=>{setappInformationStatus(true)}}
@@ -91,17 +89,15 @@ const Login = (props) => {
           Email Address:
           <input type='email'
             placeholder='Enter email'
-            // style={{ border: emailValidaion ? "red 4px solid" : '' }}
+            style={{ border: emailValidaion ? "red 4px solid" : '' }}
             onChange={(e) => setInputaEmail(e.target.value)}
-          /><br />
-          {
-            // emailValidaion ? <p style={{ color: "red" }}>not a valid email</p> : <></>
-          }
+          /><br/>
+          {emailValidaion ? <p style={{ color: "red" }}>not a valid email</p> : <></>}
           <br />
           Password
           <input type='password'
             placeholder='Enter password'
-            // style={{ border: passWValidaion ? "red 4px solid" : "" }}
+            style={{ border: passWValidaion ? "red 4px solid" : "" }}
             onChange={(e) => setInputaPassword(e.target.value)}
           /><br />
 
@@ -112,7 +108,7 @@ const Login = (props) => {
           </div>
 
           {
-            // passWValidaion ? <p style={{color:"red"}}>not a valid password</p>: <></>
+            passWValidaion ? <p style={{color:"red"}}>not a valid password</p>: <></>
           }
 
           <button

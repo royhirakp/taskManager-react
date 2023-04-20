@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import { useEffect, useState } from "react"
 import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 // import Loader from "../Card/Loder";
@@ -16,17 +16,24 @@ const Register = (props) => {
   const [TandS , setTandS] = useState(false)
   const [tandSError,setTandSError]  = useState(false)
   const [loader, setLoader] = useState(false);
+  const [emailValidaion, setEmailValidation] = useState(false)
+
   const navigate = useNavigate()
 
-  // useEffect(() => {  // useEffect for password and confurm pass word 
-  //   if (inputPassword.length > 7) {
-  //     if (inputPassword !== confirmPassword && confirmPassword.length > 3) setPassMtchStatus(false)
-  //     else setPassMtchStatus(true)
-  //     setpasswordLengthStatus(true)
-  //   } else if (inputPassword.length < 7 && inputPassword !== "") {
-  //     setpasswordLengthStatus(false)
-  //   }
-  // }, [inputPassword, confirmPassword])
+  useEffect(() => {  // useEffect for password and confurm pass word 
+    if (inputPassword.length > 7) {
+      if (inputPassword !== confirmPassword && confirmPassword.length > 3) setPassMtchStatus(false)
+      else setPassMtchStatus(true)
+      setpasswordLengthStatus(true)
+    } else if (inputPassword.length < 7 && inputPassword !== "") {
+      setpasswordLengthStatus(false)
+    }
+
+    //for email vaidation 
+    if (/[@]/.test(inputEmail) && /[.]/.test(inputEmail)) setEmailValidation(false)
+    else if (inputEmail.length === 0) setEmailValidation(false)
+    else setEmailValidation(true)
+  }, [inputPassword, confirmPassword, inputEmail])
 
   async function onsunmitFun(e) {
     e.preventDefault()
@@ -42,18 +49,18 @@ const Register = (props) => {
           console.log(body, '======body')
           
           if(TandS){
-            // setTandSError(false)
+            setTandSError(false)
             const resp = await axios.post('https://task-manager-gd9n.onrender.com/singUp', body)  
             console.log(resp)   
             navigate('../') 
-            // setSuccessMsg(resp.data.status)
-            // setAxiosErr('')
+            setSuccessMsg(resp.data.status)
+            setAxiosErr('')
             
           }else setTandSError(true)
         } catch (error) {
           console.log(error)
-          // setAxiosErr(error.response.data.status)
-          // setSuccessMsg('')
+          setAxiosErr(error.response.data.status)
+          setSuccessMsg('')
         }   
     }
     setLoader(false)
@@ -69,8 +76,12 @@ const Register = (props) => {
         
         <input type='email'
         placeholder="Email"
+        style={{ border: emailValidaion ? "red 4px solid" : '' }}
         onChange={(e) => setInputaEmail(e.target.value)} /><br />
      <br />
+          {
+            emailValidaion ? <p style={{ color: "red" }}>not a valid email</p> : <></>
+          }
         <input type='password'
         placeholder="Password"
         onChange={(e) => setInputaPassword(e.target.value)} /><br />
@@ -78,8 +89,8 @@ const Register = (props) => {
         <input type='password'
         placeholder="confirm password"
         onChange={(e) => setconfirmPassword(e.target.value)} /><br />
-        {/* {!passMtchStatus ? <p style={{ "color": "red" }}>Password Notmatched</p> : <></>} */}
-        {/* {!passwordLengthStatus ? <p style={{ "color": "red" }}>length shouldbe 8</p> : <></>} */}
+        {!passMtchStatus ? <p style={{ "color": "red" }}>Password Notmatched</p> : <></>}
+        {!passwordLengthStatus ? <p style={{ "color": "red" }}>length shouldbe 8</p> : <></>}
         <br />
 
           <div className="tramsAndCondition">
