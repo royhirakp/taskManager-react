@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import axios from 'axios'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import Loader from "../Card/Loder";
 import './Register.css'
 import Loader from "../Loader/Loder";
@@ -8,6 +8,7 @@ const Register = (props) => {
   const [inputEmail, setInputaEmail] = useState('');
   const [inputPassword, setInputaPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
+  
   const [passMtchStatus, setPassMtchStatus] = useState(true);
   const [passwordLengthStatus, setpasswordLengthStatus] = useState(true);
   const [axiosErr, setAxiosErr] = useState('');
@@ -15,6 +16,7 @@ const Register = (props) => {
   const [TandS , setTandS] = useState(false)
   const [tandSError,setTandSError]  = useState(false)
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate()
 
   // useEffect(() => {  // useEffect for password and confurm pass word 
   //   if (inputPassword.length > 7) {
@@ -42,7 +44,8 @@ const Register = (props) => {
           if(TandS){
             // setTandSError(false)
             const resp = await axios.post('https://task-manager-gd9n.onrender.com/singUp', body)  
-            console.log(resp)    
+            console.log(resp)   
+            navigate('../') 
             // setSuccessMsg(resp.data.status)
             // setAxiosErr('')
             
@@ -75,8 +78,8 @@ const Register = (props) => {
         <input type='password'
         placeholder="confirm password"
         onChange={(e) => setconfirmPassword(e.target.value)} /><br />
-        {!passMtchStatus ? <p style={{ "color": "red" }}>Password Notmatched</p> : <></>}
-        {!passwordLengthStatus ? <p style={{ "color": "red" }}>length shouldbe 8</p> : <></>}
+        {/* {!passMtchStatus ? <p style={{ "color": "red" }}>Password Notmatched</p> : <></>} */}
+        {/* {!passwordLengthStatus ? <p style={{ "color": "red" }}>length shouldbe 8</p> : <></>} */}
         <br />
 
           <div className="tramsAndCondition">

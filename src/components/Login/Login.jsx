@@ -18,6 +18,7 @@ const Login = (props) => {
   const navgate = useNavigate()
   const [errorMessege, setErrorMessege] = useState('')
   const [loader, setLoder] = useState(false)
+  const [appInformationStatus, setappInformationStatus ] = useState(false)
   // const [checkboxStatus, setCheckboxStatus] = useState(null)
   // const [emailValidaion, setEmailValidation] = useState(false)
   // const [passWValidaion, setPassWValidation] = useState(false)
@@ -65,14 +66,22 @@ const Login = (props) => {
       // document.cookie = 'Spassword'+inputPassword+";path=http://localhost:3000"
     } catch (error) {
       setErrorMessege(error.response.data.status)
-      console.log(error.response.data.status,"responde============")
+      // console.log(error.response.data.status,"responde============")
     }
     setLoder(false)
   }
 
   return (
     <div className='loginBody'>
-      <div className='Login-container'>
+      <div className='textForInformationApp' style={{visibility:`${appInformationStatus ? "hidden" : ""}`}}>
+        this is Task manager app. backend in Nodejs (deploye in render.com). frontend in react.
+         State management with tecnology used Redux-toolkit, nodejs expressJs, react, mongoDb, 
+         Render.com(api), netlify.com(ui)
+      </div>
+      <div className='Login-container'
+      onMouseEnter={()=>{setappInformationStatus(true)}}
+      onMouseLeave={()=>{setappInformationStatus(false)}}
+      >
 
         <p style={{ "textAlign": "center" }}><b>Sing In</b></p>
         <form 
@@ -114,7 +123,7 @@ const Login = (props) => {
           </button>
         </form>
         Forgot <a href="http://ww.ckc.co">Password?</a><br />
-        <Link to="/register">SingUp</Link>
+        <Link to="/register">SingUp</Link> 
         {errorMessege ? <h3 style={{ color: 'red' }}>{errorMessege}</h3> : ""}
         {loader ? <Loader/> : <></>}
         

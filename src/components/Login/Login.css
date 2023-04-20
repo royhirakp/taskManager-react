@@ -4,6 +4,14 @@
     box-sizing: border-box;
     background-color: rgb(120, 120, 237);
 }
+.textForInformationApp{
+    position: fixed;
+    width: 283px;
+    font-size: x-small;
+    background-color: bisque;
+    padding: 5px;
+    border-radius: 9px;
+}
 
 
 .Login-container {
