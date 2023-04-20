@@ -1,0 +1,14 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 100px 0 100px;
+}
+body{
+    background-color: aliceblue;
+}
+nav button{
+    float: right;
+}
+.mainLIST{
+    padding: 0 40px 0 40px;
+}

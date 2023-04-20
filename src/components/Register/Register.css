@@ -1,0 +1,30 @@
+.Reagister-container {
+    /* border: 1px solid; */
+    width: 202px;
+    padding: 57px;
+    border-radius: 24px;
+    margin-left: 170px;
+    background-color: #fff;
+    /* border: 1px solid; */
+    margin: 48px auto;
+    box-shadow: 1px 1px 25px 0px;
+    }
+
+    .Reagister-container h3{
+        text-align: center;
+    }
+
+    #inputckeckbox{
+        width:20px;
+        position: relative;
+        top: 5px;
+
+    }
+
+    .tramsAndCondition{
+        display: flex;
+    }
+
+    .tramsAndCondition p{
+        font-size: small;
+    }
