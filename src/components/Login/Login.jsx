@@ -126,6 +126,12 @@ const Login = (props) => {
             onChange={(e) => setInputaPassword(e.target.value)}
           />
           <br />
+          <p style={{ color: "red" }}>
+            user email for test the app
+            <br />
+            email:"12@12.com"
+            <br /> password:"12@12.com"
+          </p>
           <div className="chekboxRemberme">
             <input
               type="checkbox"

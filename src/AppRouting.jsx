@@ -1,16 +1,6 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
-import Register from './components/Register/Register'
-import Login from './components/Login/Login'
-import TaskListMain from './components/TaskList/TaskListMain';
-import AddTask from './components/AddTaskForm/AddTask';
+import React from "react";
 const AppRouting = () => {
-  return (
-    <div>
-    
-      
-    </div>
-  )
-}
+  return <div></div>;
+};
 
-export default AppRouting
+export default AppRouting;
